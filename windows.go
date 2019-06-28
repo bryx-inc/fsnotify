@@ -121,6 +121,9 @@ const (
 
 func newEvent(name string, mask uint32) Event {
 	e := Event{Name: name}
+	if mask&sysFSCLOSE == sysFSCLOSE {
+		e.Op = CloseWrite
+	}
 	if mask&sysFSCREATE == sysFSCREATE || mask&sysFSMOVEDTO == sysFSMOVEDTO {
 		e.Op |= Create
 	}
